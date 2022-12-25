@@ -1,61 +1,71 @@
 package com.patriciamolnar;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Calculator {
-    private final char ADDITION = '+';
-    private final char SUBTRACTION = '-'; 
-    private final char MULTIPLICATION = '*'; 
-    private final char DIVIDSION = '/'; 
-    private final char MODULUS = '%'; 
-
-    int num1; 
-    int num2; 
-    char operation; 
-
     public static void main(String[] args) {
+        int operand = 0;
+        Scanner scanner = new Scanner(System.in);
         Calculator calculator = new Calculator(); 
-        calculator.setOperands(args);
-        int result = calculator.calculate(); 
-        if(result == -1) {
-            System.out.println("Invalid operation.");
-        } else {
-            System.out.println("The result is: " + result);
+
+        try {
+            System.out.println("Welcome to Patricia's first Java Calculater!");
+            System.out.println("Please enter your 1st number:");
+            float x = scanner.nextFloat(); 
+            System.out.println("Thanks! Please enter the 2nd number:");
+            float y = scanner.nextFloat(); 
+            do {
+                calculator.printOptions(operand);
+                operand = scanner.nextInt();
+            } while (operand < 0 || operand > 5);
+            
+            String result = calculator.calculate(x, y, operand);
+            System.out.println(result);
+        } 
+        catch (InputMismatchException ime) {
+            System.out.println("You messed up! I'm gonna quit on you! Bye...");
+        }
+        finally {
+            scanner.close();
         }
     }
 
-    void setOperands(String[] args) {
-        if(args.length != 3) {
-            System.out.println("Please provide 3 arguments in the form of e.g. '1 * 3'.");
-        } else {
-            int num1, num2; 
-            char operand = args[1].charAt(0);
-            
-            try {
-                num1 = Integer.parseInt(args[0]); 
-                num2 = Integer.parseInt(args[2]);
-                this.num1 = num1; 
-                this.operation = operand; 
-                this.num2 = num2;
-            }
-            catch (NumberFormatException ex){
-                System.out.println("Incorrect format. Please make sure you are entering numbers.");
-            }
-            
-        }
+    void printOptions(int operand) {
+        System.out.println("Now please choose one of the following operations");
+        System.out.println("Press 1 for ADDITION");
+        System.out.println("Press 2 for SUBTRACTION");
+        System.out.println("Press 3 for MULTIPLICATION");
+        System.out.println("Press 4 for DIVISION");
+        System.out.println("Press 5 for MODULUS");
     }
 
-    int calculate() {
-        int result = -1; 
-
-        if(operation == ADDITION) {
-            result = num1 + num2; 
-        } else if(operation == SUBTRACTION) {
-            result = num1 - num2;
-        } else if(operation == MULTIPLICATION) {
-            result = num1 * num2;
-        } else if(operation == DIVIDSION) {
-            result = num1 / num2;
-        } else if(operation == MODULUS) {
-            result = num1 % num2;
+    String calculate(float x, float y, int operand) {
+        String result;
+        switch(operand) {
+            case 1: {
+                result = "The result of " + x + " + " + y + " is " + (x + y); 
+                break;
+            }
+            case 2: {
+                result = "The result of " + x + " - " + y + " is " + (x - y); 
+                break;
+            }
+            case 3: {
+                result = "The result of " + x + " * " + y + " is " + (x * y); 
+                break;
+            }
+            case 4: {
+                result = "The result of " + x + " / " + y + " is " + (x / y); 
+                break;
+            }
+            case 5: {
+                result = "The result of " + x + " % " + y + " is " + (x % y);
+                break;
+            }
+            default: {
+                result = "The result of " + x + " + " + y + " is " + (x + y);
+            }
         }
 
         return result; 
