@@ -44,7 +44,7 @@ public class Calculator {
         String result;
         switch(operand) {
             case 1: {
-                result = "The result of " + x + " + " + y + " is " + (x + y); 
+                result = "The result of " + x + " + " + y + " is " + Float.sum(x, y); 
                 break;
             }
             case 2: {
