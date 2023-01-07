@@ -27,3 +27,10 @@ public class Snake extends JFrame {
     }
 
 }
+
+/*
+ * Notes: 
+ * JFrame: is a Swing top-level container that reders a window on screen. 
+ * A frame is a base window on which other components rely, e.g. menu bar, panels, labels, text fields, buttons
+ * Almost all Swing applications start with a JFrame window
+ */

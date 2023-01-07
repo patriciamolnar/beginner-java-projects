@@ -2,3 +2,7 @@ Java Tutorials:
 Action Listeners: https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html 
 Snake Game: https://github.com/janbodnar/Java-Snake-Game/blob/master/src/com/zetcode/Board.java 
 https://www.javatpoint.com/java-jtextfield (Java Tutorial)
+
+Using Swing Components: https://docs.oracle.com/javase/tutorial/uiswing/components/index.html 
+Laying out Components: https://docs.oracle.com/javase/tutorial/uiswing/layout/border.html 
+JFrame basic tutorial: https://www.codejava.net/java-se/swing/jframe-basic-tutorial-and-examples 
