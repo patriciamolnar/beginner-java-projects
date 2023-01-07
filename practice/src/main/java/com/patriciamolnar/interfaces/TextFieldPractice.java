@@ -10,12 +10,13 @@ public class TextFieldPractice {
         JFrame frame = new JFrame("Example");
         JTextField field = new JTextField("Hello world!"); 
 
-        field.setBackground(Color.PINK);
+        field.setBackground(Color.decode("#ccffcc"));
         field.setBounds(50, 35, 200, 50);
 
         frame.add(field);
         frame.setSize(300, 150);
         frame.setLayout(null);
         frame.setVisible(true);
+        frame.getContentPane().setBackground(Color.decode("#00cc99"));
     }
 }
