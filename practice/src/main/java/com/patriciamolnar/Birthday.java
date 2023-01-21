@@ -37,6 +37,11 @@ public class Birthday {
 // DateTimeFormatter builder
 
 /**
+ * Useful links: 
+ * https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
+ * https://www.concretepage.com/java/jdk-8/java-8-datetimeformatter-datetimeformatterbuilder-example
+ * https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
+ * 
  * Notes: 
  * d (will parse days that have 1 or 2 digits)
  * MMM (will parse Apr, but not April)
