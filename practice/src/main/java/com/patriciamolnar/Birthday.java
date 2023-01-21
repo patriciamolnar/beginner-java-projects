@@ -2,28 +2,33 @@ package com.patriciamolnar;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Birthday {
     private LocalDate birthday; 
     public static void main(String[] args) {
-        Birthday program = new Birthday(); 
-        Scanner input = new Scanner(System.in);
-        System.out.println("Welcome! Please enter your birth date (DD MM YYYY)");
 
-        String answer = input.nextLine();
+        try(Scanner input = new Scanner(System.in);) {
+            Birthday program = new Birthday(); 
+            System.out.println("Welcome! Please enter your birth date (YYYY MM DD)");
+            String answer = input.nextLine();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        program.birthday = LocalDate.parse(answer, formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy", Locale.getDefault());
+            program.birthday = LocalDate.parse(answer, formatter);
 
-        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, d LLL yyyy");
-        System.out.println(myFormat.format(program.birthday));
+            DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, d LLL yyyy.");
+            System.out.println(myFormat.format(program.birthday));
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+        } finally {
+            System.out.println("Program over");
+        }
 
-        input.close();
     }
 }
 
-// month and day are reversed
 // try with resources 
 // error handling DateTimeParseException, IllegalArgumentException
 // DateTimeFormatter builder
