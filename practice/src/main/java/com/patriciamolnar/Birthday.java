@@ -1,7 +1,9 @@
 package com.patriciamolnar;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Scanner;
 
 public class Birthday {
@@ -15,7 +17,9 @@ public class Birthday {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
         program.birthday = LocalDate.parse(answer, formatter);
-        System.out.println(program.birthday);
+
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("d L yyyy");
+        System.out.println(myFormat.format(program.birthday));
 
         input.close();
     }
@@ -23,7 +27,7 @@ public class Birthday {
 
 // format the output of the variable so it's being printed in a nice way
 // try with resources 
-// error handling DateTimeParseException
+// error handling DateTimeParseException, IllegalArgumentException
 // DateTimeFormatter builder
 
 /**
