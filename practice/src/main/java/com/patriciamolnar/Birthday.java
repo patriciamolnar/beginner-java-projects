@@ -1,9 +1,7 @@
 package com.patriciamolnar;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Scanner;
 
 public class Birthday {
@@ -18,14 +16,14 @@ public class Birthday {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
         program.birthday = LocalDate.parse(answer, formatter);
 
-        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("d L yyyy");
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, d LLL yyyy");
         System.out.println(myFormat.format(program.birthday));
 
         input.close();
     }
 }
 
-// format the output of the variable so it's being printed in a nice way
+// month and day are reversed
 // try with resources 
 // error handling DateTimeParseException, IllegalArgumentException
 // DateTimeFormatter builder
