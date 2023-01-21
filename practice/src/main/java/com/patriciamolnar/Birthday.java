@@ -2,34 +2,37 @@ package com.patriciamolnar;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Birthday {
     private LocalDate birthday; 
     public static void main(String[] args) {
-
         try(Scanner input = new Scanner(System.in);) {
             Birthday program = new Birthday(); 
             System.out.println("Welcome! Please enter your birth date (YYYY MM DD)");
             String answer = input.nextLine();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy", Locale.getDefault());
-            program.birthday = LocalDate.parse(answer, formatter);
-
-            DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, d LLL yyyy.");
-            System.out.println(myFormat.format(program.birthday));
+            program.birthday = program.convertStringToDate(answer);
+            program.printResult(program.birthday);
         } catch(Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("The error: " + ex.getMessage());
             System.out.println(ex.getStackTrace());
         } finally {
             System.out.println("Program over");
         }
+    }
 
+    public LocalDate convertStringToDate(String userInput) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy", Locale.getDefault());
+        return LocalDate.parse(userInput, formatter);
+    }
+
+    public void printResult(LocalDate birthday) throws IllegalArgumentException {
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, d LLL yyyy.");
+        System.out.println(myFormat.format(birthday));
     }
 }
-
-// try with resources 
 // error handling DateTimeParseException, IllegalArgumentException
 // DateTimeFormatter builder
 
