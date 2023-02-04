@@ -3,10 +3,12 @@ package com.patriciamolnar;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -27,26 +29,42 @@ public class Birthday {
         //     .toFormatter();
     }
 
-    private String getDayOfBirthday() {
+    private void getDayOfBirthday() {
         DayOfWeek dayOfWeek = birthday.getDayOfWeek();
         String day = dayOfWeek.toString().toLowerCase();
-        return day.substring(0, 1).toUpperCase() + day.substring(1);
+        String dayString = day.substring(0, 1).toUpperCase() + day.substring(1);
+        System.out.println("You were born on a " + Ansi.ANSI_GREEN + dayString + Ansi.ANSI_RESET + '.');
     }
 
-    private int getDaysAlive() {
-        return 1; 
+    private void printPeriodAlive() {
+        LocalDate today = LocalDate.now();
+
+        Period period = Period.between(birthday, today);
+        int years = period.getYears(); 
+        int months = period.getMonths();
+        int days = period.getDays();
+
+        System.out.println("You have been alive " + 
+            Ansi.ANSI_GREEN + years + Ansi.ANSI_RESET + (years == 1 ? " year " : " years ") + 
+            Ansi.ANSI_GREEN + months + Ansi.ANSI_RESET + (months == 1 ? " month " : " months ") +
+            Ansi.ANSI_GREEN + days + Ansi.ANSI_RESET + (days == 1 ? " day." : " days."));
+
+        long totalMonths = ChronoUnit.MONTHS.between(birthday, today); 
+        long totalDays = ChronoUnit.DAYS.between(birthday, today);
+        
+        System.out.println("That's a total of " + Ansi.ANSI_GREEN + totalMonths + Ansi.ANSI_RESET + (totalMonths == 1 ? " month" : " months."));
+        System.out.println("Or " + Ansi.ANSI_GREEN + totalDays + Ansi.ANSI_RESET + (totalDays == 1 ? " day." : " days."));
     }
 
     private void getBirthdayInfo() {
         try(Scanner input = new Scanner(System.in);) { 
-            System.out.println("Welcome! Please enter your birth date (DD MM YYYY)");
+            System.out.println(Ansi.ANSI_GREEN + "Welcome! Please enter your birth date (DD MM YYYY)" + Ansi.ANSI_RESET);
             
             String answer = input.nextLine();
             birthday = convertStringToDate(answer);
 
-            String day = getDayOfBirthday();
-            System.out.println("You were born on a " + Ansi.ANSI_GREEN + day + Ansi.ANSI_RESET + '.');
-            // formatDate(birthday);
+            getDayOfBirthday();
+            printPeriodAlive();
 
         } catch (DateTimeParseException dte) { // if user inputs incorrect value
             handleError(dte, "Invalid input. Please enter your birthdate in the format DD MM YYYY");
@@ -57,7 +75,7 @@ public class Birthday {
         } catch(Exception ex) { // generic error
             handleError(ex);
         } finally {
-            System.out.println("Program over");
+            System.out.println("Bye.");
         }
     }
 
