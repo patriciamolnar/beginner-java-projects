@@ -9,24 +9,51 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.IntStream;
 
 public class Birthday {
     private LocalDate birthday; 
     public static void main(String[] args) {
         Birthday program = new Birthday();
+        program.generateMap();
         program.getBirthdayInfo(); 
+
     }
 
-    private void learningFormatterBuilder() {
-        LocalDate date = LocalDate.now();
-        System.out.println(date.getDayOfWeek());
-        // DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
-        // DateTimeFormatter formatter = builder
-        //     .appendLiteral("You were born on a: ")
-        //     .appendValue(date.getDayOfWeek())
-        //     .toFormatter();
+    private String getOrdinalSuffix(int num) {
+        String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (num % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return Ansi.ANSI_GREEN + num + "th" + Ansi.ANSI_RESET;
+            default:
+                return Ansi.ANSI_GREEN + num + suffixes[num % 10] + Ansi.ANSI_RESET;
+        }
+    }
+
+    private static final Map<Long, String> map = new HashMap<>();
+    private void generateMap() {
+        for(long i = 1; i <= 365; i++) {
+            map.put(i, getOrdinalSuffix((int)i));
+        }
+    }
+
+    private void getNthDayOfYear() {
+        DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
+        DateTimeFormatter formatter = builder
+            .appendLiteral("You were born on the ")
+            .appendText(ChronoField.DAY_OF_YEAR, map)
+            .appendLiteral(" day of the year.")
+            .toFormatter();
+
+        String res = birthday.format(formatter);
+        System.out.println(res);
     }
 
     private void getDayOfBirthday() {
@@ -64,6 +91,7 @@ public class Birthday {
             birthday = convertStringToDate(answer);
 
             getDayOfBirthday();
+            getNthDayOfYear(); 
             printPeriodAlive();
 
         } catch (DateTimeParseException dte) { // if user inputs incorrect value
@@ -103,12 +131,8 @@ public class Birthday {
 // DateTimeFormatter builder
 
 /**
- * - how many days alive
- * how many years alive
- * seconds
- * minutes
+ * experiment around with the date formatter, just so you can see how it works 
  * what time was it in hong kong, london, new york, los angeles. 
- * how many seconds since the epoch
  */
 
 
