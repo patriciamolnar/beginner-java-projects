@@ -33,34 +33,42 @@ public class Birthday {
         return day.substring(0, 1).toUpperCase() + day.substring(1);
     }
 
+    private int getDaysAlive() {
+        return 1; 
+    }
+
     private void getBirthdayInfo() {
         try(Scanner input = new Scanner(System.in);) { 
             System.out.println("Welcome! Please enter your birth date (DD MM YYYY)");
+            
             String answer = input.nextLine();
             birthday = convertStringToDate(answer);
+
             String day = getDayOfBirthday();
             System.out.println("You were born on a " + Ansi.ANSI_GREEN + day + Ansi.ANSI_RESET + '.');
             // formatDate(birthday);
 
-            // if user inputs incorrect value
-        } catch (DateTimeParseException dte) {
-            System.out.println("Invalid input. Please enter your birthdate in the format DD MM YYYY");
-            System.out.println("The error: " + dte.getMessage());
-            System.out.println(dte.getStackTrace());
+        } catch (DateTimeParseException dte) { // if user inputs incorrect value
+            handleError(dte, "Invalid input. Please enter your birthdate in the format DD MM YYYY");
 
-            // cannot format birthdate
-        } catch (IllegalArgumentException iae) {
-            System.out.println("The developer messed up something.");
-            System.out.println("The error: " + iae.getMessage());
-            System.out.println(iae.getStackTrace());
-
-            // generic error
-        } catch(Exception ex) {
-            System.out.println("The error: " + ex.getMessage());
-            System.out.println(ex.getStackTrace());
+        } catch (IllegalArgumentException iae) { // cannot format birthdate
+            handleError(iae, "The developer messed up something.");
+        
+        } catch(Exception ex) { // generic error
+            handleError(ex);
         } finally {
             System.out.println("Program over");
         }
+    }
+
+    private void handleError(Exception ex) {
+        System.out.println("The error: " + ex.getMessage());
+        System.out.println(ex.getStackTrace());
+    }
+
+    private void handleError(Exception ex, String message) {
+        System.out.println(message);
+        handleError(ex); 
     }
 
     private LocalDate convertStringToDate(String userInput) throws DateTimeParseException {
