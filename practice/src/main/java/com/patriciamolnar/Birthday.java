@@ -1,20 +1,46 @@
 package com.patriciamolnar;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Birthday {
     private LocalDate birthday; 
     public static void main(String[] args) {
-        try(Scanner input = new Scanner(System.in);) {
-            Birthday program = new Birthday(); 
+        Birthday program = new Birthday();
+        program.getBirthdayInfo(); 
+    }
+
+    private void learningFormatterBuilder() {
+        LocalDate date = LocalDate.now();
+        System.out.println(date.getDayOfWeek());
+        // DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
+        // DateTimeFormatter formatter = builder
+        //     .appendLiteral("You were born on a: ")
+        //     .appendValue(date.getDayOfWeek())
+        //     .toFormatter();
+    }
+
+    private String getDayOfBirthday() {
+        DayOfWeek dayOfWeek = birthday.getDayOfWeek();
+        String day = dayOfWeek.toString().toLowerCase();
+        return day.substring(0, 1).toUpperCase() + day.substring(1);
+    }
+
+    private void getBirthdayInfo() {
+        try(Scanner input = new Scanner(System.in);) { 
             System.out.println("Welcome! Please enter your birth date (DD MM YYYY)");
             String answer = input.nextLine();
-            program.birthday = program.convertStringToDate(answer);
-            program.formatDate(program.birthday);
+            birthday = convertStringToDate(answer);
+            String day = getDayOfBirthday();
+            System.out.println("You were born on a " + Ansi.ANSI_GREEN + day + Ansi.ANSI_RESET + '.');
+            // formatDate(birthday);
 
             // if user inputs incorrect value
         } catch (DateTimeParseException dte) {
@@ -73,4 +99,5 @@ public class Birthday {
  * MM (will parse 04 but not Apr / April)
  * 
  * if you use Scanner.next() you cannot have spaces in between words. A safer format would be e.g. using 01-02-2023
+ * to solve this problem use Scanner.nextLine()
  */
