@@ -2,7 +2,6 @@ package com.patriciamolnar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -13,8 +12,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.stream.Collector;
-import java.util.stream.IntStream;
 
 public class Birthday {
     private LocalDate birthday; 
@@ -128,10 +125,7 @@ public class Birthday {
     }
 }
 
-// DateTimeFormatter builder
-
 /**
- * experiment around with the date formatter, just so you can see how it works 
  * what time was it in hong kong, london, new york, los angeles. 
  */
 
