@@ -81,7 +81,7 @@ public class Birthday {
     }
 
     private void getBirthdayInfo() {
-        try(Scanner input = new Scanner(System.in);) { 
+        try(Scanner input = new Scanner(System.in)) { 
             System.out.println(Ansi.ANSI_GREEN + "Welcome! Please enter your birth date (DD MM YYYY)" + Ansi.ANSI_RESET);
             
             String answer = input.nextLine();
