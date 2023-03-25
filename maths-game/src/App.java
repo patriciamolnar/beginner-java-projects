@@ -6,13 +6,12 @@ public class App {
     private int max = 10; 
 
     private int count = 0;
-    // private char[] types = {'+', '-', '*', '/', '%'};
-    private char[] types = {'/', '/', '/', '/', '/'};
+    private char[] types = {'+', '-', '*', '/', '%'};
     private Random random = new Random();
 
     private int correct = 0;
     
-    private double num1, num2; 
+    private double x, y; 
     private int currentTypeIndex;
 
     public static void main(String[] args) {
@@ -46,43 +45,40 @@ public class App {
         char calcType = types[currentTypeIndex];
 
         if(x > y) {
-            num1 = x;
-            num2 = y;
+            this.x = x;
+            this.y = y;
         } else {
-            num1 = y;
-            num2 = x;
+            this.x = y;
+            this.y = x;
         }
 
-        return num1 + " " + calcType + " " + num2;
+        return this.x + " " + calcType + " " + this.y;
     }
 
     private double calculateSolution() {
-    
-        double result = num1 / num2; 
+        double result; 
 
-        return Math.round(result * 100.0) / 100.0; 
-        
-        // switch(currentTypeIndex) {
-        //     case 0: 
-        //         result = x + y;
-        //         break;
-        //     case 1: 
-        //         result = x - y;
-        //         break; 
-        //     case 2: 
-        //         result = x * y;
-        //         break;
-        //     case 3: 
-        //         result = x / y;
-        //         break;
-        //     case 4: 
-        //         result = x % y;
-        //         break; 
-        //     default: 
-        //         result = 0; 
-        // }
+        switch(currentTypeIndex) {
+            case 0: 
+                result = x + y;
+                break;
+            case 1: 
+                result = x - y;
+                break; 
+            case 2: 
+                result = x * y;
+                break;
+            case 3: 
+                result = x / y;
+                break;
+            case 4: 
+                result = x % y;
+                break; 
+            default: 
+                result = 0; 
+        }
 
-        // return (float) result; 
+        return Math.round(result * 100.0) / 100.0;
     }
 
     private void checkAnswer(double answer) {
