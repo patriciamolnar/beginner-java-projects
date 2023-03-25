@@ -92,10 +92,11 @@ public class App {
     }
 }
 
-/**
- * todo: 
- * allow floats as an input 
+/** 
+ * when displaying question, remove the decimal points from the numbers.
  * handle errors
+ * increase the size of the numbers used
+ * allow users to choose specific division to practice.
  */
 
 
@@ -104,4 +105,6 @@ public class App {
  * 
  * when adding a number to a char, the char will be converted to its ASCII code and the result will be a number
  * e.g. 1 + ' ' will return 33, as ASCII code for space is 32. 
+ * 
+ * for divisions use doubles
  */
