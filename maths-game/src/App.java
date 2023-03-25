@@ -6,12 +6,13 @@ public class App {
     private int max = 10; 
 
     private int count = 0;
-    private char[] types = {'+', '-', '*', '/', '%'};
+    // private char[] types = {'+', '-', '*', '/', '%'};
+    private char[] types = {'/', '/', '/', '/', '/'};
     private Random random = new Random();
 
     private int correct = 0;
     
-    private int num1, num2; 
+    private double num1, num2; 
     private int currentTypeIndex;
 
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class App {
             do {
                 String question = app.generateQuestion();
                 System.out.println(question);
-                float answer = input.nextFloat();
+                double answer = input.nextDouble();
                 app.checkAnswer(answer);
                 app.count++;
             } while(app.count < 10);
@@ -30,8 +31,8 @@ public class App {
         System.out.println("Game Over: You got " + app.correct + " out of 10 correct.");
     }
 
-    private int generateNumber() {
-        return (int) Math.floor(Math.random() * (max - min + 1) + min);
+    private double generateNumber() {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     private int generateNumber(int max) {
@@ -39,8 +40,8 @@ public class App {
     }
 
     private String generateQuestion() {
-        int x = generateNumber();
-        int y = generateNumber(); 
+        double x = generateNumber();
+        double y = generateNumber(); 
         currentTypeIndex = generateNumber(types.length);
         char calcType = types[currentTypeIndex];
 
@@ -55,40 +56,43 @@ public class App {
         return num1 + " " + calcType + " " + num2;
     }
 
-    private float calculateSolution() {
-        float result; 
-        
-        switch(currentTypeIndex) {
-            case 0: 
-                result = num1 + num2;
-                break;
-            case 1: 
-                result = num1 - num2;
-                break; 
-            case 2: 
-                result = num1 * num2;
-                break;
-            case 3: 
-                result = num1 / num2;
-                break;
-            case 4: 
-                result = num1 % num2;
-                break; 
-            default: 
-                result = 0; 
-        }
+    private double calculateSolution() {
+    
+        double result = num1 / num2; 
 
-        return result; 
+        return Math.round(result * 100.0) / 100.0; 
+        
+        // switch(currentTypeIndex) {
+        //     case 0: 
+        //         result = x + y;
+        //         break;
+        //     case 1: 
+        //         result = x - y;
+        //         break; 
+        //     case 2: 
+        //         result = x * y;
+        //         break;
+        //     case 3: 
+        //         result = x / y;
+        //         break;
+        //     case 4: 
+        //         result = x % y;
+        //         break; 
+        //     default: 
+        //         result = 0; 
+        // }
+
+        // return (float) result; 
     }
 
-    private void checkAnswer(float answer) {
-        float solution = calculateSolution();
-        boolean answerCorrect = solution == answer;
-        if(answerCorrect) {
+    private void checkAnswer(double answer) {
+        double solution = calculateSolution();
+        if(solution == answer) {
             correct++;
+            System.out.println("Correct");
+        } else {
+            System.out.println("Incorrect, answer is: " + solution);
         }
-
-        System.out.println("Your answer is: " + (answerCorrect ? "correct" : "false"));
     }
 }
 
