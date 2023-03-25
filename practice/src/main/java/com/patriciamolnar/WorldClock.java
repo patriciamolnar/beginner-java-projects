@@ -40,6 +40,7 @@ public class WorldClock {
     }
 }
 
+// finish with the help of this: https://mkyong.com/java/java-convert-date-and-time-between-timezone/
 
 /**
  * steps: 
