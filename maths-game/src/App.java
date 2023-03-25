@@ -8,20 +8,26 @@ public class App {
     private int count = 0;
     private char[] types = {'+', '-', '*', '/', '%'};
     private Random random = new Random();
+
+    private int correct = 0;
     
     private int num1, num2; 
     private int currentTypeIndex;
 
     public static void main(String[] args) {
         App app = new App();
-        String question = app.generateQuestion();
 
         try(Scanner input = new Scanner(System.in)) {
-            System.out.println(question);
-
-            int answer = input.nextInt(); 
-            app.checkAnswer(answer);
+            do {
+                String question = app.generateQuestion();
+                System.out.println(question);
+                float answer = input.nextFloat();
+                app.checkAnswer(answer);
+                app.count++;
+            } while(app.count < 10);
         }
+
+        System.out.println("Game Over: You got " + app.correct + " out of 10 correct.");
     }
 
     private int generateNumber() {
@@ -33,24 +39,24 @@ public class App {
     }
 
     private String generateQuestion() {
-        int num1 = generateNumber();
-        int num2 = generateNumber(); 
+        int x = generateNumber();
+        int y = generateNumber(); 
         currentTypeIndex = generateNumber(types.length);
         char calcType = types[currentTypeIndex];
 
-        if(num1 > num2) {
-            this.num1 = num1;
-            this.num2 = num2;
+        if(x > y) {
+            num1 = x;
+            num2 = y;
         } else {
-            this.num1 = num2;
-            this.num2 = num1;
+            num1 = y;
+            num2 = x;
         }
 
         return num1 + " " + calcType + " " + num2;
     }
 
-    private int calculateSolution() {
-        int result; 
+    private float calculateSolution() {
+        float result; 
         
         switch(currentTypeIndex) {
             case 0: 
@@ -75,12 +81,22 @@ public class App {
         return result; 
     }
 
-    private void checkAnswer(int answer) {
-        int solution = calculateSolution();
-        System.out.println(solution == answer);
-    }
+    private void checkAnswer(float answer) {
+        float solution = calculateSolution();
+        boolean answerCorrect = solution == answer;
+        if(answerCorrect) {
+            correct++;
+        }
 
+        System.out.println("Your answer is: " + (answerCorrect ? "correct" : "false"));
+    }
 }
+
+/**
+ * todo: 
+ * allow floats as an input 
+ * handle errors
+ */
 
 
 /**
