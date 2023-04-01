@@ -52,7 +52,7 @@ public class App {
             this.y = x;
         }
 
-        return this.x + " " + calcType + " " + this.y;
+        return String.format("%.0f", this.x) + " " + calcType + " " + String.format("%.0f", this.y);
     }
 
     private double calculateSolution() {
@@ -95,7 +95,7 @@ public class App {
 /** 
  * when displaying question, remove the decimal points from the numbers.
  * handle errors
- * increase the size of the numbers used
+ * increase the size of the numbers used as the game progresses
  * allow users to choose specific division to practice.
  */
 
