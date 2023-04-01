@@ -15,7 +15,7 @@ public class App {
     private double x, y; 
     private int currentTypeIndex;
 
-    private int limit = 2; 
+    private int limit = 10; 
 
     public static void main(String[] args) {
         App app = new App();
@@ -36,18 +36,22 @@ public class App {
             } while(count < limit);
         } catch(InputMismatchException ime) {
             handleError(input, question);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
     private void runQuiz(Scanner input, String question) {
         try {
             do {
-                System.out.println("We're expecting a valid number! Please try again:");
+                System.out.println(Ansi.ANSI_RED + "We're expecting a valid number! Please try again:" + Ansi.ANSI_RESET);
                 handleAnswer(input, question);
                 runQuiz(input);
             } while(count < limit);
         } catch(InputMismatchException ime) {
             handleError(input, question);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -118,16 +122,17 @@ public class App {
         double solution = calculateSolution();
         if(solution == answer) {
             correct++;
-            System.out.println("Correct");
+            System.out.println(Ansi.ANSI_GREEN + "Correct" + Ansi.ANSI_RESET);
         } else {
-            System.out.println("Incorrect, answer is: " + solution);
+            System.out.println(
+                Ansi.ANSI_RED + "Incorrect" + Ansi.ANSI_RESET + 
+                ", answer is: " + 
+                Ansi.ANSI_GREEN + solution + Ansi.ANSI_RESET);
         }
     }
 }
 
 /** 
- * when displaying question, remove the decimal points from the numbers.
- * handle errors => when incorrect input
  * increase the size of the numbers used as the game progresses
  * allow users to choose specific division to practice.
  * add colouring to question & result. 
