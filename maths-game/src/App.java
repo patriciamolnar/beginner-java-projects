@@ -21,41 +21,46 @@ public class App {
         App app = new App();
         Scanner input = new Scanner(System.in);
 
-        app.getUserInput(input);
+        app.runQuiz(input);
         input.close();
+
         System.out.println("Game Over: You got " + app.correct + " out of " + app.limit + " correct.");
     }
 
-    private void getUserInput(Scanner input) {
+    private void runQuiz(Scanner input) {
         String question = ""; 
         try {
             do {
                 question = generateQuestion();
-                System.out.println(question);
-                double answer = input.nextDouble();   
-                checkAnswer(answer);
-                count++;
+                handleAnswer(input, question);
             } while(count < limit);
         } catch(InputMismatchException ime) {
-            input.next();
-            getUserInput(input, question);
+            handleError(input, question);
         }
     }
 
-    private void getUserInput(Scanner input, String question) {
+    private void runQuiz(Scanner input, String question) {
         try {
             do {
-                System.out.println("Incorrect input: we're expecting a number!");
-                System.out.println(question);
-                double answer = input.nextDouble();   
-                checkAnswer(answer);
-                count++;
-                getUserInput(input);
+                System.out.println("We're expecting a valid number! Please try again:");
+                handleAnswer(input, question);
+                runQuiz(input);
             } while(count < limit);
         } catch(InputMismatchException ime) {
-            input.next();
-            getUserInput(input, question);
+            handleError(input, question);
         }
+    }
+
+    private void handleAnswer(Scanner input, String question) {
+        System.out.println(question);
+        double answer = input.nextDouble();   
+        checkAnswer(answer);
+        count++;
+    }
+
+    private void handleError(Scanner input, String question) {
+        input.next();
+        runQuiz(input, question);
     }
 
     private double generateNumber() {
