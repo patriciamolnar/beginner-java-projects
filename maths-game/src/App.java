@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,18 +17,43 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        Scanner input = new Scanner(System.in);
 
-        try(Scanner input = new Scanner(System.in)) {
-            do {
-                String question = app.generateQuestion();
-                System.out.println(question);
-                double answer = input.nextDouble();
-                app.checkAnswer(answer);
-                app.count++;
-            } while(app.count < 10);
-        }
-
+        app.getUserInput(input);
+        input.close();
         System.out.println("Game Over: You got " + app.correct + " out of 10 correct.");
+    }
+
+    private void getUserInput(Scanner input) {
+        String question = ""; 
+        try {
+            do {
+                question = generateQuestion();
+                System.out.println(question);
+                double answer = input.nextDouble();   
+                checkAnswer(answer);
+            count++;
+            } while(count < 10);
+        } catch(InputMismatchException ime) {
+            input.next();
+            getUserInput(input, question);
+        }
+    }
+
+    private void getUserInput(Scanner input, String question) {
+        try {
+            do {
+                System.out.println("Incorrect input: we're expecting a number!");
+                System.out.println(question);
+                double answer = input.nextDouble();   
+                checkAnswer(answer);
+                getUserInput(input);
+            count++;
+            } while(count < 10);
+        } catch(InputMismatchException ime) {
+            input.next();
+            getUserInput(input, question);
+        }
     }
 
     private double generateNumber() {
@@ -94,9 +120,10 @@ public class App {
 
 /** 
  * when displaying question, remove the decimal points from the numbers.
- * handle errors
+ * handle errors => when incorrect input
  * increase the size of the numbers used as the game progresses
  * allow users to choose specific division to practice.
+ * add colouring to question & result. 
  */
 
 
