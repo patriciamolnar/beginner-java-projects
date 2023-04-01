@@ -15,13 +15,15 @@ public class App {
     private double x, y; 
     private int currentTypeIndex;
 
+    private int limit = 2; 
+
     public static void main(String[] args) {
         App app = new App();
         Scanner input = new Scanner(System.in);
 
         app.getUserInput(input);
         input.close();
-        System.out.println("Game Over: You got " + app.correct + " out of 10 correct.");
+        System.out.println("Game Over: You got " + app.correct + " out of " + app.limit + " correct.");
     }
 
     private void getUserInput(Scanner input) {
@@ -32,8 +34,8 @@ public class App {
                 System.out.println(question);
                 double answer = input.nextDouble();   
                 checkAnswer(answer);
-            count++;
-            } while(count < 10);
+                count++;
+            } while(count < limit);
         } catch(InputMismatchException ime) {
             input.next();
             getUserInput(input, question);
@@ -47,9 +49,9 @@ public class App {
                 System.out.println(question);
                 double answer = input.nextDouble();   
                 checkAnswer(answer);
+                count++;
                 getUserInput(input);
-            count++;
-            } while(count < 10);
+            } while(count < limit);
         } catch(InputMismatchException ime) {
             input.next();
             getUserInput(input, question);
