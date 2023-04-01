@@ -133,9 +133,10 @@ public class App {
 }
 
 /** 
+ * set timer so it shows how many seconds it took you
+ * add timer that makes message an error when user fails to supply input
  * increase the size of the numbers used as the game progresses
- * allow users to choose specific division to practice.
- * add colouring to question & result. 
+ * allow users to choose specific division to practice. 
  */
 
 
