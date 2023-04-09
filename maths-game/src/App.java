@@ -141,23 +141,24 @@ public class App {
         Duration duration = Duration.between(start, end);
         
         System.out.println(duration);
-        long seconds = duration.getSeconds();
-        long absSeconds = Math.abs(seconds);
+        long absSeconds = Math.abs(duration.getSeconds());
 
         long hours =  absSeconds / 3600;
-        long mins = (absSeconds % 3600) / 60;
-        long remainingSeconds = absSeconds % 60; 
-        
-        String positive = String.format(
-            "%02d:%02d:%02d",
-            absSeconds / 3600,
-            (absSeconds % 3600) / 60,
-            absSeconds % 60
-        );
+        long minutes = (absSeconds % 3600) / 60;
+        long seconds = absSeconds % 60; 
 
-        System.out.println(positive);
-        return hours + " hours" + mins + " minutes" + remainingSeconds + " seconds";
-        // return seconds < 0 ? "-" + positive : positive;
+        String result = ""; 
+        if(hours > 0) {
+            result += hours + " hours ";
+        }
+
+        if(minutes > 0) {
+            result +=  minutes + " minutes "; 
+        }
+
+        result += seconds + " seconds";
+
+        return result; 
     }
 }
 
