@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -21,10 +23,14 @@ public class App {
         App app = new App();
         Scanner input = new Scanner(System.in);
 
+        Instant start = Instant.now();
         app.runQuiz(input);
+        Instant end = Instant.now(); 
+        String durationMessage = app.getDuration(start, end);
         input.close();
 
         System.out.println("Game Over: You got " + app.correct + " out of " + app.limit + " correct.");
+        System.out.println("The time you needed to complete game: " + durationMessage);
     }
 
     private void runQuiz(Scanner input) {
@@ -130,10 +136,32 @@ public class App {
                 Ansi.ANSI_GREEN + solution + Ansi.ANSI_RESET);
         }
     }
+
+    private String getDuration(Instant start, Instant end) {
+        Duration duration = Duration.between(start, end);
+        
+        System.out.println(duration);
+        long seconds = duration.getSeconds();
+        long absSeconds = Math.abs(seconds);
+
+        long hours =  absSeconds / 3600;
+        long mins = (absSeconds % 3600) / 60;
+        long remainingSeconds = absSeconds % 60; 
+        
+        String positive = String.format(
+            "%02d:%02d:%02d",
+            absSeconds / 3600,
+            (absSeconds % 3600) / 60,
+            absSeconds % 60
+        );
+
+        System.out.println(positive);
+        return hours + " hours" + mins + " minutes" + remainingSeconds + " seconds";
+        // return seconds < 0 ? "-" + positive : positive;
+    }
 }
 
 /** 
- * set timer so it shows how many seconds it took you
  * add timer that makes message an error when user fails to supply input
  * increase the size of the numbers used as the game progresses
  * allow users to choose specific division to practice. 

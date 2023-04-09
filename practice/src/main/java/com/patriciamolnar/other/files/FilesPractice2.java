@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FilesPractice2 {
     // private final String path = "./practice/src/main/java/com/patriciamolnar/other/files/test.txt";
-    private final String path = "./data.txt";
+    private final String path = "files/data.txt";
 
     public static void main(String[] args) throws IOException {
         FilesPractice2 fp = new FilesPractice2();
